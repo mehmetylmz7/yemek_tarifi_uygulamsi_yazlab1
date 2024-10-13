@@ -42,5 +42,12 @@ namespace yazlabProje1
             tarifmalzemeform.Show();
             this.Hide();
         }
+
+        private void tarifgoruntulebutonu_Click(object sender, EventArgs e)
+        {
+            tarifgoruntuleformu tarifgoruntuleformu = new tarifgoruntuleformu();
+            tarifgoruntuleformu.Show();
+            this.Hide();
+        }
     }
 }

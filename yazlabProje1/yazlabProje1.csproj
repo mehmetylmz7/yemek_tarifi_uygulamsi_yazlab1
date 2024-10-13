@@ -173,6 +173,12 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="sqlbaglantisi.cs" />
+    <Compile Include="tarifgoruntuleformu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="tarifgoruntuleformu.Designer.cs">
+      <DependentUpon>tarifgoruntuleformu.cs</DependentUpon>
+    </Compile>
     <Compile Include="tarifmalzemeform.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -214,6 +220,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>yazlab1_tarifDataSet6.xsd</DependentUpon>
     </Compile>
+    <Compile Include="yazlab1_tarifDataSet7.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>yazlab1_tarifDataSet7.xsd</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -232,6 +243,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="tarifgoruntuleformu.resx">
+      <DependentUpon>tarifgoruntuleformu.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="tarifmalzemeform.resx">
       <DependentUpon>tarifmalzemeform.cs</DependentUpon>
     </EmbeddedResource>
@@ -321,6 +335,17 @@
     </None>
     <None Include="yazlab1_tarifDataSet6.xss">
       <DependentUpon>yazlab1_tarifDataSet6.xsd</DependentUpon>
+    </None>
+    <None Include="yazlab1_tarifDataSet7.xsc">
+      <DependentUpon>yazlab1_tarifDataSet7.xsd</DependentUpon>
+    </None>
+    <None Include="yazlab1_tarifDataSet7.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>yazlab1_tarifDataSet7.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="yazlab1_tarifDataSet7.xss">
+      <DependentUpon>yazlab1_tarifDataSet7.xsd</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
