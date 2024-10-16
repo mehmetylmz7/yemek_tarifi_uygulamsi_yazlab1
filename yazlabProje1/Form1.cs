@@ -36,13 +36,7 @@ namespace yazlabProje1
            
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            int tarifID = 0;
-            tarifmalzemeform tarifmalzemeform = new tarifmalzemeform(tarifID);
-            tarifmalzemeform.Show();
-            this.Hide();
-        }
+       
 
         private void tarifgoruntulebutonu_Click(object sender, EventArgs e)
         {
