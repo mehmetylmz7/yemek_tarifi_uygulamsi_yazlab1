@@ -7,15 +7,19 @@ namespace yazlabProje1
 {
     public partial class tarifmalzemeform : Form
     {
-        public tarifmalzemeform()
+        private int selectedTarifId;
+
+        public tarifmalzemeform(int tarifID)
         {
             InitializeComponent();
+            selectedTarifId = tarifID; // Geçirilen TarifID'yi kaydediyoruz
         }
 
         private void tarifmalzeme_Load(object sender, EventArgs e)
         {
-            LoadTarifler();    // Tarifler için ComboBox'ı doldur
-            LoadMalzemeler();  // Malzemeler için ComboBox'ı doldur
+            LoadTarifler();
+            LoadMalzemeler();
+            comboBox1.SelectedValue = selectedTarifId; // Eklenen tarifi otomatik olarak seç
         }
 
         private void LoadTarifler()
@@ -112,5 +116,15 @@ namespace yazlabProje1
             }
         }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+            MalzemeForm form2 = new MalzemeForm();
+            form2.Show();
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

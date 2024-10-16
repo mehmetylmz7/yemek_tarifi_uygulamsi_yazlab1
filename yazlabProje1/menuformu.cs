@@ -44,16 +44,39 @@ namespace yazlabProje1
 
         private void button1_Click(object sender, EventArgs e)
         {
-            SqlCommand komut = new SqlCommand("insert into Tbl_Tarifler (TarifAdi,Kategori,HazirlanmaSuresi,Talimatlar) values (@p1,@p2,@p3,@p4)", bgl.baglanti());
+            // TextBox ve ComboBox'ların boş olup olmadığını kontrol et
+            if (string.IsNullOrWhiteSpace(textBox1.Text) ||
+                comboBox1.SelectedItem == null ||
+                string.IsNullOrWhiteSpace(textBox2.Text) ||
+                string.IsNullOrWhiteSpace(textBox3.Text))
+            {
+                MessageBox.Show("Lütfen tüm alanları doldurun.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Veritabanına ekleme işlemi, son eklenen TarifID'yi alıyoruz
+            // Insert komutunu düzeltelim
+            SqlCommand komut = new SqlCommand("INSERT INTO Tbl_Tarifler (TarifAdi, Kategori, HazirlanmaSuresi, Talimatlar) OUTPUT INSERTED.TarifID VALUES (@p1, @p2, @p3, @p4)", bgl.baglanti());
+
             komut.Parameters.AddWithValue("@p1", textBox1.Text);
             komut.Parameters.AddWithValue("@p2", comboBox1.SelectedItem.ToString());
             komut.Parameters.AddWithValue("@p3", textBox2.Text);
             komut.Parameters.AddWithValue("@p4", textBox3.Text);
-            komut.ExecuteReader();
+
+            // Eklenen tarife ait ID'yi al
+            int addedRecipeId = (int)komut.ExecuteScalar();
+
             bgl.baglanti().Close();
 
-            VerileriYenile();   
+            // Verileri yenile
+            VerileriYenile();
+
+            // Yeni tarif ID'sini diğer forma geçir
+            tarifmalzemeform tarifmalzemeform = new tarifmalzemeform(addedRecipeId);
+            tarifmalzemeform.Show();
         }
+
+
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -120,5 +143,9 @@ namespace yazlabProje1
             MessageBox.Show("Tarif başarıyla güncellendi!", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
