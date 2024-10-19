@@ -172,6 +172,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="siralamaformu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="siralamaformu.Designer.cs">
+      <DependentUpon>siralamaformu.cs</DependentUpon>
+    </Compile>
     <Compile Include="sqlbaglantisi.cs" />
     <Compile Include="tarifgoruntuleformu.cs">
       <SubType>Form</SubType>
@@ -243,6 +249,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="siralamaformu.resx">
+      <DependentUpon>siralamaformu.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="tarifgoruntuleformu.resx">
       <DependentUpon>tarifgoruntuleformu.cs</DependentUpon>
     </EmbeddedResource>

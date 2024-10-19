@@ -44,5 +44,11 @@ namespace yazlabProje1
             tarifgoruntuleformu.Show();
             this.Hide();
         }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            siralamaformu siralamaForm = new siralamaformu();
+            siralamaForm.Show();
+        }
     }
 }
