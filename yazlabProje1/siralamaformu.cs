@@ -14,119 +14,166 @@ namespace yazlabProje1
 
         private void siralamaformu_Load(object sender, EventArgs e)
         {
-            CalculateTarifMaliyet();
+            TumTariflerinMaliyetleriniHesaplaVeListele();
         }
-
-        private void CalculateTarifMaliyet()
+        private float HesaplaToplamMaliyet(int selectedTarifID)
         {
             string connectionString = "Data Source=DIDIM\\SQLEXPRESS;Initial Catalog=yazlab1_tarif;Integrated Security=True;";
-            string query = "SELECT TarifID FROM Tbl_Tarifler"; // Tüm tariflerin ID'lerini al
 
-            List<string> tarifMaliyetList = new List<string>();
-
+            // İlk liste: Tbl_TarifMalzeme_iliskisi tablosundan MalzemeID ve MalzemeMiktarlarını al (int, string)
+            List<Tuple<int, string>> malzemeMiktarListesi = new List<Tuple<int, string>>();
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                SqlCommand command = new SqlCommand(query, connection);
-                try
-                {
-                    connection.Open();
-                    SqlDataReader reader = command.ExecuteReader();
-
-                    while (reader.Read())
-                    {
-                        int tarifID = reader.GetInt32(0);
-                        float toplamMaliyet = CalculateMaliyetForTarif(tarifID);
-                        tarifMaliyetList.Add($"Tarif ID: {tarifID}, Toplam Maliyet: {toplamMaliyet.ToString("0.00")} TL");
-                    }
-                    reader.Close();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Maliyet hesaplanırken bir hata oluştu: " + ex.Message);
-                }
-            }
-
-            // Maliyet listesini ListBox veya DataGridView'e ekle
-            foreach (var item in tarifMaliyetList)
-            {
-                listBox1.Items.Add(item); // listBox1'iniz varsa
-            }
-        }
-
-        private float CalculateMaliyetForTarif(int tarifID)
-        {
-            string connectionString = "Data Source=DIDIM\\SQLEXPRESS;Initial Catalog=yazlab1_tarif;Integrated Security=True;";
-            float toplamMaliyet = 0;
-
-            // Malzemeleri ve miktarları al
-            string queryMalzemeler = "SELECT MalzemeID, CAST(MalzemeMiktar AS VARCHAR) AS MalzemeMiktar FROM Tbl_TarifMalzeme_iliskisi WHERE TarifID = @TarifID";
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
+                string queryMalzemeler = "SELECT MalzemeID, CAST(MalzemeMiktar AS VARCHAR) AS MalzemeMiktar FROM Tbl_TarifMalzeme_iliskisi WHERE TarifID = @TarifID";
                 SqlCommand command = new SqlCommand(queryMalzemeler, connection);
-                command.Parameters.AddWithValue("@TarifID", tarifID);
+                command.Parameters.AddWithValue("@TarifID", selectedTarifID);
 
                 try
                 {
                     connection.Open();
                     SqlDataReader reader = command.ExecuteReader();
-                    List<Tuple<int, string>> malzemeMiktarListesi = new List<Tuple<int, string>>();
-
                     while (reader.Read())
                     {
                         int malzemeID = reader.GetInt32(0);
-                        string malzemeMiktarStr = reader.GetString(1); // Miktarı string olarak al
+                        string malzemeMiktarStr = reader.GetString(1);
                         malzemeMiktarListesi.Add(new Tuple<int, string>(malzemeID, malzemeMiktarStr));
                     }
                     reader.Close();
-
-                    // Birim fiyatları al ve toplam maliyeti hesapla
-                    foreach (var malzeme in malzemeMiktarListesi)
-                    {
-                        float birimFiyat = GetBirimFiyat(malzeme.Item1); // MalzemeID'ye göre birim fiyatı al
-                        if (float.TryParse(malzeme.Item2, out float malzemeMiktar)) // Miktarı float'a çevir
-                        {
-                            toplamMaliyet += birimFiyat * malzemeMiktar;
-                        }
-                        else
-                        {
-                            MessageBox.Show($"Malzeme miktarı '{malzeme.Item2}' dönüştürülemedi: Lütfen geçerli bir değer girin.");
-                        }
-                    }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Malzeme hesaplanırken bir hata oluştu: " + ex.Message);
+                    MessageBox.Show("Malzemeler yüklenirken bir hata oluştu: " + ex.Message);
+                    return -1; // Hata durumunda -1 döndürür
                 }
             }
 
-            return toplamMaliyet;
-        }
+            if (malzemeMiktarListesi.Count == 0)
+            {
+                MessageBox.Show("Bu tarif için malzeme bulunamadı.");
+                return -1;
+            }
 
-        private float GetBirimFiyat(int malzemeID)
-        {
-            string connectionString = "Data Source=DIDIM\\SQLEXPRESS;Initial Catalog=yazlab1_tarif;Integrated Security=True;";
-            string queryBirimFiyat = "SELECT CAST(BirimFiyat AS VARCHAR) AS BirimFiyat FROM Tbl_Malzemeler WHERE MalzemeID = @MalzemeID";
+            // İkinci liste: MalzemeID'leri kullanarak Tbl_Malzemeler tablosundan BirimFiyat ve MalzemeMiktarlarını al (string, string)
+            List<Tuple<string, string>> fiyatMiktarListesi = new List<Tuple<string, string>>();
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                SqlCommand command = new SqlCommand(queryBirimFiyat, connection);
-                command.Parameters.AddWithValue("@MalzemeID", malzemeID);
+                foreach (var malzeme in malzemeMiktarListesi)
+                {
+                    string queryBirimFiyat = "SELECT CAST(BirimFiyat AS VARCHAR) AS BirimFiyat FROM Tbl_Malzemeler WHERE MalzemeID = @MalzemeID";
+                    SqlCommand command = new SqlCommand(queryBirimFiyat, connection);
+                    command.Parameters.AddWithValue("@MalzemeID", malzeme.Item1);
+
+                    try
+                    {
+                        connection.Open();
+                        var result = command.ExecuteScalar();
+                        if (result != null)
+                        {
+                            string birimFiyatStr = result.ToString();
+                            fiyatMiktarListesi.Add(new Tuple<string, string>(birimFiyatStr, malzeme.Item2));
+                        }
+                        else
+                        {
+                            MessageBox.Show("Birim fiyat bulunamadı: MalzemeID " + malzeme.Item1);
+                            return -1;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Birim fiyat hesaplanırken bir hata oluştu: " + ex.Message);
+                        return -1;
+                    }
+                    finally
+                    {
+                        connection.Close();
+                    }
+                }
+            }
+
+            if (fiyatMiktarListesi.Count == 0)
+            {
+                MessageBox.Show("Birim fiyatlar bulunamadı.");
+                return -1;
+            }
+
+            // Üçüncü liste: String değerleri floata dönüştür ve ekle (float, float)
+            List<Tuple<float, float>> finalList = new List<Tuple<float, float>>();
+            foreach (var fiyatMiktar in fiyatMiktarListesi)
+            {
+                try
+                {
+                    float birimFiyat = float.Parse(fiyatMiktar.Item1, System.Globalization.CultureInfo.InvariantCulture);
+                    float malzemeMiktar = float.Parse(fiyatMiktar.Item2, System.Globalization.CultureInfo.InvariantCulture);
+                    finalList.Add(new Tuple<float, float>(birimFiyat, malzemeMiktar));
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Değerler dönüştürülürken bir hata oluştu: " + ex.Message);
+                    return -1;
+                }
+            }
+
+            // Toplam maliyeti hesapla
+            float toplamMaliyet = 0;
+            foreach (var fiyatMiktar2 in finalList)
+            {
+                toplamMaliyet += fiyatMiktar2.Item1 * fiyatMiktar2.Item2;
+            }
+
+            // Toplam maliyeti geri döndür
+            return toplamMaliyet;
+        }
+        private void TumTariflerinMaliyetleriniHesaplaVeListele()
+        {
+            string connectionString = "Data Source=DIDIM\\SQLEXPRESS;Initial Catalog=yazlab1_tarif;Integrated Security=True;";
+
+            // TarifID'leri saklamak için liste
+            List<int> tarifIDListesi = new List<int>();
+
+            // Tbl_Tarifler tablosundan tüm TarifID'leri çek
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string queryTarifler = "SELECT TarifID FROM Tbl_Tarifler";
+                SqlCommand command = new SqlCommand(queryTarifler, connection);
 
                 try
                 {
                     connection.Open();
-                    var result = command.ExecuteScalar();
-                    if (result != null)
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
                     {
-                        return float.Parse(result.ToString(), System.Globalization.CultureInfo.InvariantCulture);
+                        int tarifID = reader.GetInt32(0);
+                        tarifIDListesi.Add(tarifID); // TarifID'yi listeye ekle
                     }
+                    reader.Close();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Birim fiyat alınırken bir hata oluştu: " + ex.Message);
+                    MessageBox.Show("Tarifler yüklenirken bir hata oluştu: " + ex.Message);
+                    return;
                 }
             }
 
-            return 0; // Fiyat bulunamazsa 0 döner
+            // ListBox'ı temizle (önceki verileri temizlemek için)
+            listBox1.Items.Clear();
+
+            // Her bir tarif için maliyet hesapla ve ListBox'a ekle
+            foreach (int tarifID in tarifIDListesi)
+            {
+                float maliyet = HesaplaToplamMaliyet(tarifID); // Metotu çağır ve maliyeti hesapla
+
+                if (maliyet != -1) // Hata durumu olmayanları ekle
+                {
+                    // ListBox'a TarifID ve maliyeti yazdır
+                    listBox1.Items.Add("Tarif ID: " + tarifID + " - Toplam Maliyet: " + maliyet.ToString("0.00") + " TL");
+                }
+                else
+                {
+                    listBox1.Items.Add("Tarif ID: " + tarifID + " - Maliyet hesaplanamadı.");
+                }
+            }
         }
+
+
     }
 }
