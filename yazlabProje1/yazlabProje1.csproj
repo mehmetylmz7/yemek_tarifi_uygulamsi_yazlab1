@@ -191,6 +191,12 @@
     <Compile Include="tarifmalzemeform.Designer.cs">
       <DependentUpon>tarifmalzemeform.cs</DependentUpon>
     </Compile>
+    <Compile Include="Tarifonerisi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tarifonerisi.Designer.cs">
+      <DependentUpon>Tarifonerisi.cs</DependentUpon>
+    </Compile>
     <Compile Include="yazlab1_tarifDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -277,6 +283,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="tarifmalzemeform.resx">
       <DependentUpon>tarifmalzemeform.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tarifonerisi.resx">
+      <DependentUpon>Tarifonerisi.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

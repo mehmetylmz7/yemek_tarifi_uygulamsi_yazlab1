@@ -22,7 +22,7 @@ namespace yazlabProje1
         {
             // TODO: Bu kod satırı 'yazlab1_tarifDataSet2.Tbl_Tarifler' tablosuna veri yükler. Bunu gerektiği şekilde taşıyabilir, veya kaldırabilirsiniz.
             this.tbl_TariflerTableAdapter.Fill(this.yazlab1_tarifDataSet2.Tbl_Tarifler);
-
+            textBox7.TextChanged += new EventHandler(textBox7_TextChanged);
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -147,5 +147,38 @@ namespace yazlabProje1
         {
 
         }
+
+        private void textBox7_TextChanged(object sender, EventArgs e)
+        {
+            AramaYap();
+        }
+        private void AramaYap()
+        {
+            DataTable table = new DataTable(); // Yeni bir DataTable oluştur
+            table.Clear(); // Daha önceki verileri temizle
+
+            try
+            {
+           //     bgl.baglanti().Open(); // Bağlantıyı aç
+
+                // SQL sorgusu, textBox7'ye girilen kelimeyi kullanarak LIKE ile filtreler
+                SqlDataAdapter adtr = new SqlDataAdapter("SELECT * FROM Tbl_Tarifler WHERE TarifAdi LIKE @arama OR Kategori LIKE @arama OR HazirlanmaSuresi LIKE @arama OR Talimatlar LIKE @arama", bgl.baglanti());
+
+                // Parametreleri ekle
+                adtr.SelectCommand.Parameters.AddWithValue("@arama", "%" + textBox7.Text + "%"); // Parametreli arama
+
+                adtr.Fill(table); // DataTable'a verileri doldur
+                dataGridView1.DataSource = table; // DataGridView'e verileri bağla
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("Hata oluştu: " + ex.Message, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                bgl.baglanti().Close(); // Bağlantıyı kapat
+            }
+        }
+
     }
 }
