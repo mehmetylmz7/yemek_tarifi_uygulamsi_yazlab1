@@ -201,6 +201,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>yazlab1_tarifDataSet1.xsd</DependentUpon>
     </Compile>
+    <Compile Include="yazlab1_tarifDataSet10.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>yazlab1_tarifDataSet10.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="yazlab1_tarifDataSet11.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>yazlab1_tarifDataSet11.xsd</DependentUpon>
+    </Compile>
     <Compile Include="yazlab1_tarifDataSet2.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -230,6 +240,16 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>yazlab1_tarifDataSet7.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="yazlab1_tarifDataSet8.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>yazlab1_tarifDataSet8.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="yazlab1_tarifDataSet9.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>yazlab1_tarifDataSet9.xsd</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
@@ -289,6 +309,28 @@
     </None>
     <None Include="yazlab1_tarifDataSet1.xss">
       <DependentUpon>yazlab1_tarifDataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="yazlab1_tarifDataSet10.xsc">
+      <DependentUpon>yazlab1_tarifDataSet10.xsd</DependentUpon>
+    </None>
+    <None Include="yazlab1_tarifDataSet10.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>yazlab1_tarifDataSet10.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="yazlab1_tarifDataSet10.xss">
+      <DependentUpon>yazlab1_tarifDataSet10.xsd</DependentUpon>
+    </None>
+    <None Include="yazlab1_tarifDataSet11.xsc">
+      <DependentUpon>yazlab1_tarifDataSet11.xsd</DependentUpon>
+    </None>
+    <None Include="yazlab1_tarifDataSet11.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>yazlab1_tarifDataSet11.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="yazlab1_tarifDataSet11.xss">
+      <DependentUpon>yazlab1_tarifDataSet11.xsd</DependentUpon>
     </None>
     <None Include="yazlab1_tarifDataSet2.xsc">
       <DependentUpon>yazlab1_tarifDataSet2.xsd</DependentUpon>
@@ -355,6 +397,28 @@
     </None>
     <None Include="yazlab1_tarifDataSet7.xss">
       <DependentUpon>yazlab1_tarifDataSet7.xsd</DependentUpon>
+    </None>
+    <None Include="yazlab1_tarifDataSet8.xsc">
+      <DependentUpon>yazlab1_tarifDataSet8.xsd</DependentUpon>
+    </None>
+    <None Include="yazlab1_tarifDataSet8.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>yazlab1_tarifDataSet8.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="yazlab1_tarifDataSet8.xss">
+      <DependentUpon>yazlab1_tarifDataSet8.xsd</DependentUpon>
+    </None>
+    <None Include="yazlab1_tarifDataSet9.xsc">
+      <DependentUpon>yazlab1_tarifDataSet9.xsd</DependentUpon>
+    </None>
+    <None Include="yazlab1_tarifDataSet9.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>yazlab1_tarifDataSet9.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="yazlab1_tarifDataSet9.xss">
+      <DependentUpon>yazlab1_tarifDataSet9.xsd</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
