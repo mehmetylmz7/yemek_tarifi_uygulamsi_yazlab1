@@ -80,15 +80,15 @@ namespace yazlabProje1
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-           string tarifadi = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+            string tarifadi = dataGridView1.CurrentRow.Cells[0].Value.ToString();
             string kategori = dataGridView1.CurrentRow.Cells[1].Value.ToString();
             string hazirlanmasuresi = dataGridView1.CurrentRow.Cells[2].Value.ToString();
-            string talimatlar= dataGridView1.CurrentRow.Cells[3].Value.ToString();
+            string talimatlar = dataGridView1.CurrentRow.Cells[3].Value.ToString();
 
             textBox6.Text = tarifadi;
             comboBox2.Text = kategori;
             textBox5.Text = hazirlanmasuresi;
-            textBox4.Text = talimatlar;    
+            textBox4.Text = talimatlar;
 
         }
 
@@ -108,17 +108,26 @@ namespace yazlabProje1
             // Kullanıcı 'Evet' butonuna basarsa silme işlemi başlasın
             if (result == DialogResult.Yes)
             {
-                SqlCommand komut = new SqlCommand("DELETE FROM Tbl_Tarifler WHERE TarifAdi = @p1", bgl.baglanti());
-                komut.Parameters.AddWithValue("@p1", textBox6.Text); // Tarif adını alıyoruz
-                komut.ExecuteNonQuery();
+                // Önce ilişkili kayıtları Tbl_TarifMalzeme_iliskisi tablosundan siliyoruz
+                SqlCommand komut1 = new SqlCommand("DELETE FROM Tbl_TarifMalzeme_iliskisi WHERE TarifID = (SELECT TarifID FROM Tbl_Tarifler WHERE TarifAdi = @p1)", bgl.baglanti());
+                komut1.Parameters.AddWithValue("@p1", textBox6.Text);
+                komut1.ExecuteNonQuery();
+
+                // Ardından tarifi Tbl_Tarifler tablosundan siliyoruz
+                SqlCommand komut2 = new SqlCommand("DELETE FROM Tbl_Tarifler WHERE TarifAdi = @p1", bgl.baglanti());
+                komut2.Parameters.AddWithValue("@p1", textBox6.Text);
+                komut2.ExecuteNonQuery();
+
+                // Bağlantıyı kapat
                 bgl.baglanti().Close();
 
                 // DataGridView'i güncelle
                 VerileriYenile();
 
                 // Kullanıcıya bilgi mesajı ver
-                MessageBox.Show("Tarif başarıyla silindi!", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Tarif ve ilişkili malzemeler başarıyla silindi!", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -159,7 +168,7 @@ namespace yazlabProje1
 
             try
             {
-           //     bgl.baglanti().Open(); // Bağlantıyı aç
+                //     bgl.baglanti().Open(); // Bağlantıyı aç
 
                 // SQL sorgusu, textBox7'ye girilen kelimeyi kullanarak LIKE ile filtreler
                 SqlDataAdapter adtr = new SqlDataAdapter("SELECT * FROM Tbl_Tarifler WHERE TarifAdi LIKE @arama OR Kategori LIKE @arama OR HazirlanmaSuresi LIKE @arama OR Talimatlar LIKE @arama", bgl.baglanti());
