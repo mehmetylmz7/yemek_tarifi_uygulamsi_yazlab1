@@ -135,7 +135,7 @@ namespace yazlabProje1
 
             if (malzemeMiktarListesi.Count == 0)
             {
-                MessageBox.Show("Bu tarif için malzeme bulunamadı.");
+                // MessageBox.Show("Bu tarif için malzeme bulunamadı.");
                 return -1;
             }
 

@@ -64,16 +64,16 @@
             // 
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 16;
-            this.listBox1.Location = new System.Drawing.Point(26, 232);
+            this.listBox1.Location = new System.Drawing.Point(12, 12);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(188, 356);
+            this.listBox1.Size = new System.Drawing.Size(277, 196);
             this.listBox1.TabIndex = 0;
             this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(867, 39);
+            this.comboBox1.Location = new System.Drawing.Point(433, 34);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(237, 24);
             this.comboBox1.TabIndex = 1;
@@ -81,7 +81,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(756, 42);
+            this.label1.Location = new System.Drawing.Point(322, 37);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(59, 16);
             this.label1.TabIndex = 2;
@@ -137,11 +137,11 @@
             this.tarifAdiDataGridViewTextBoxColumn,
             this.hazirlanmaSuresiDataGridViewTextBoxColumn});
             this.dataGridView1.DataSource = this.tblTariflerBindingSource3;
-            this.dataGridView1.Location = new System.Drawing.Point(242, 232);
+            this.dataGridView1.Location = new System.Drawing.Point(12, 232);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(475, 326);
+            this.dataGridView1.Size = new System.Drawing.Size(348, 326);
             this.dataGridView1.TabIndex = 3;
             // 
             // tarifAdiDataGridViewTextBoxColumn
@@ -177,11 +177,11 @@
             // dataGridView2
             // 
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Location = new System.Drawing.Point(745, 232);
+            this.dataGridView2.Location = new System.Drawing.Point(403, 232);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.RowHeadersWidth = 51;
             this.dataGridView2.RowTemplate.Height = 24;
-            this.dataGridView2.Size = new System.Drawing.Size(398, 326);
+            this.dataGridView2.Size = new System.Drawing.Size(355, 326);
             this.dataGridView2.TabIndex = 4;
             // 
             // siralamaformu
