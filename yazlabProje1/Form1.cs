@@ -40,7 +40,12 @@ namespace yazlabProje1
 
         private void Form1_Load(object sender, EventArgs e)
         {
-           
+            panel3.Controls.Clear();
+            TumTariflerinListelenmesi tariflistele = new TumTariflerinListelenmesi();
+            tariflistele.MdiParent = this;
+            tariflistele.FormBorderStyle = FormBorderStyle.None;
+            panel3.Controls.Add(tariflistele);
+            tariflistele.Show();
         }
 
        
@@ -76,6 +81,19 @@ namespace yazlabProje1
             tarifonerisi.Show();
         }
 
-        
+        private void button3_Click(object sender, EventArgs e)
+        {
+            panel3.Controls.Clear();
+            TumTariflerinListelenmesi tariflistele =new TumTariflerinListelenmesi();
+            tariflistele.MdiParent = this;
+            tariflistele.FormBorderStyle= FormBorderStyle.None;
+            panel3.Controls.Add(tariflistele);
+            tariflistele.Show();
+        }
+
+        private void panel3_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
