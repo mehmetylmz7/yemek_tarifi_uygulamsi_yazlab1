@@ -54,6 +54,8 @@
             this.tblTariflerBindingSource3 = new System.Windows.Forms.BindingSource(this.components);
             this.tbl_TariflerTableAdapter3 = new yazlabProje1.yazlab1_tarifDataSet16TableAdapters.Tbl_TariflerTableAdapter();
             this.tbl_TariflerTableAdapter4 = new yazlabProje1.yazlab1_tarifDataSet17TableAdapters.Tbl_TariflerTableAdapter();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.tblTariflerBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.yazlab1_tarifDataSet12)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.yazlab1_tarifDataSet13)).BeginInit();
@@ -66,6 +68,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.yazlab1_tarifDataSet17)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.yazlab1_tarifDataSet16)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tblTariflerBindingSource3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // tblTariflerBindingSource
@@ -85,7 +88,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(715, 202);
+            this.label1.Location = new System.Drawing.Point(715, 227);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(130, 16);
             this.label1.TabIndex = 1;
@@ -93,7 +96,7 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(718, 230);
+            this.textBox1.Location = new System.Drawing.Point(718, 256);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(122, 22);
             this.textBox1.TabIndex = 2;
@@ -229,11 +232,31 @@
             // 
             this.tbl_TariflerTableAdapter4.ClearBeforeFill = true;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(718, 50);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(197, 156);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 6;
+            this.pictureBox1.TabStop = false;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(715, 20);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(141, 16);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "Secilen Tarifin Gorseli:";
+            // 
             // TumTariflerinListelenmesi
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(990, 641);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.label2);
@@ -254,6 +277,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.yazlab1_tarifDataSet17)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.yazlab1_tarifDataSet16)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tblTariflerBindingSource3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -285,5 +309,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn tarifAdiDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn kategoriDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn hazirlanmaSuresiDataGridViewTextBoxColumn;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label label3;
     }
 }

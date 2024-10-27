@@ -158,6 +158,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="FotoClass.cs" />
     <Compile Include="MalzemeForm.cs">
       <SubType>Form</SubType>
     </Compile>

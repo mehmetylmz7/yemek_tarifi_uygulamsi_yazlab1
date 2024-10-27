@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient; // Gerekli ad alanı
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace yazlabProje1
@@ -80,7 +81,19 @@ namespace yazlabProje1
                         textBox1.Clear();
                         textBox1.AppendText("Maliyet bulunamadı."); // Eğer maliyet yoksa
                     }
+
+                    // Fotoğrafı PictureBox'a yükle
+                    if (FotoClass.FotoDictionary.TryGetValue(selectedTarifID, out string fotoYolu) && System.IO.File.Exists(fotoYolu))
+                    {
+                        pictureBox1.ImageLocation = fotoYolu;
+                        pictureBox1.Image=Image.FromFile(fotoYolu);
+                    }
+                    else
+                    {
+                        pictureBox1.Image = null; // Fotoğraf bulunamazsa boş bırak
+                    }
                 }
+
                 catch (Exception ex)
                 {
                     MessageBox.Show("Talimatlar yüklenirken bir hata oluştu: " + ex.Message);

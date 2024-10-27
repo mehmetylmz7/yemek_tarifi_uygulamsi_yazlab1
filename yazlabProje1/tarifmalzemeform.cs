@@ -20,6 +20,8 @@ namespace yazlabProje1
             LoadTarifler();
             LoadMalzemeler();
             comboBox1.SelectedValue = selectedTarifId; // Eklenen tarifi otomatik olarak seç
+
+            this.FormClosing += new FormClosingEventHandler(tarifmalzemeform_FormClosing);
         }
 
         private void LoadTarifler()
@@ -131,5 +133,47 @@ namespace yazlabProje1
         {
             LoadMalzemeler();
         }
+
+        private void tarifmalzemeform_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            string connectionString = "Data Source=DIDIM\\SQLEXPRESS;Initial Catalog=yazlab1_tarif;Integrated Security=True;";
+            string checkQuery = "SELECT COUNT(*) FROM Tbl_TarifMalzeme_iliskisi WHERE TarifID = @TarifID";
+            string deleteQuery = "DELETE FROM Tbl_Tarifler WHERE TarifID = @TarifID";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand checkCommand = new SqlCommand(checkQuery, connection);
+                checkCommand.Parameters.AddWithValue("@TarifID", selectedTarifId); // Kapatılan formun bağlı olduğu tarif ID
+
+                try
+                {
+                    connection.Open(); // Bağlantıyı aç
+
+                    // Malzeme kontrolü yap
+                    int count = (int)checkCommand.ExecuteScalar(); // Sorguyu çalıştır ve sonuç al
+
+                    if (count > 0)
+                    {
+                        MessageBox.Show("Bu tarif ile ilişkili malzemeler var. Kapatma işlemi iptal ediliyor.");
+                        e.Cancel = true; // Formun kapanmasını iptal et
+                    }
+                    else
+                    {
+                        // Malzeme yoksa, tarifi sil
+                        SqlCommand deleteCommand = new SqlCommand(deleteQuery, connection);
+                        deleteCommand.Parameters.AddWithValue("@TarifID", selectedTarifId);
+                        deleteCommand.ExecuteNonQuery(); // Silme işlemini gerçekleştir
+                        MessageBox.Show("Tarife malzeme eklemediginiz için tarif silindi."); // Başarılı mesajı
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Veri kontrolü sırasında bir hata oluştu: " + ex.Message);
+                }
+            }
+
+
+        }
+
     }
 }

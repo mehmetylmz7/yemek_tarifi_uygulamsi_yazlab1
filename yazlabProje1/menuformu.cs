@@ -73,7 +73,10 @@ namespace yazlabProje1
 
             // Yeni tarif ID'sini diğer forma geçir
             tarifmalzemeform tarifmalzemeform = new tarifmalzemeform(addedRecipeId);
+            tarifmalzemeform.FormClosed += (s, args) => VerileriYenile(); 
             tarifmalzemeform.Show();
+
+            
         }
 
 
